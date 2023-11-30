@@ -58,20 +58,32 @@ public class JogoAdivinhacao {
         letrasCorretas = Arrays.asList(" _ ", "_ ", "_ ", "_ ", "_ ");
         for (int i = 0; i < 5; i++) {
             char letra = palpite.charAt(i);
-            if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(i)).toUpperCase())){
+            if (contarOcorrencias(palavraSecreta.getPalavra(), letra) >= 1){
+                for (int j = 0; j < 5; j++){
+                    if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(j)).toUpperCase())){
+                        letrasCorretas.set(i, String.valueOf(letra)+"*");
+                    }
+                }
+            }
+            if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(i)).toUpperCase()))
+            {
                 letrasCorretas.set(i, String.valueOf(letra));
                 continue;
             }
-            for (int j = 0; j < 5; j++){
-                if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(j)).toUpperCase())){
-                    letrasCorretas.set(i, String.valueOf(letra)+"*");
-                    //break;
-                }
-            }
+
         }
         tentativasRestantes--;
     }
-
+    private  int contarOcorrencias(String palavra, char letra) {
+        int count = 0;
+        for (int i = 0; i < palavra.length(); i++) {
+            char texte = palavra.charAt(i);
+            if (String.valueOf(palavra.charAt(i)).toUpperCase().equals(String.valueOf(letra).toUpperCase())) {
+                count++;
+            }
+        }
+        return count;
+    }
     private boolean tentativaValida(String palavraDigitada){
         if (palavraDigitada.length() == 5){
             return true;

@@ -14,6 +14,7 @@ public class PalavraSecreta {
         Random random = new Random();
         int indice = random.nextInt(listaRetorno.size());
         palavra = listaRetorno.get(indice).toUpperCase();
+        System.out.println("palavra chave é:"+ palavra);
         return palavra;
     }
 
@@ -24,9 +25,5 @@ public class PalavraSecreta {
 
     public char getLetra(int indice) {
         return palavra.charAt(indice);
-    }
-
-    public boolean contains(String valueOf) {
-        return false;
     }
 }
