@@ -7,24 +7,20 @@ public class PalavraSecreta {
 
     private String palavra;
 
-    public PalavraSecreta(List<String> palavras) {
-        escolherPalavraAleatoria(palavras);
-    }
+    public String escolherPalavraAleatoria() {
 
-    private void escolherPalavraAleatoria(List<String> palavras) {
-//        Random random = new Random();
-//        int indice = random.nextInt(palavras.size());
-//        palavra = palavras.get(indice).toUpperCase();
-        palavra = "Cinco";
-    }
-
-    public String getPalavra() {
+        RequestApiList requestApiList = new RequestApiList();
+        List<String> listaRetorno = requestApiList.consultarAPI();
+        Random random = new Random();
+        int indice = random.nextInt(listaRetorno.size());
+        palavra = listaRetorno.get(indice).toUpperCase();
         return palavra;
     }
 
-//    public int getTamanho() {
-//        return palavra.length();
-//    }
+    public String getPalavra()
+    {
+        return palavra;
+    }
 
     public char getLetra(int indice) {
         return palavra.charAt(indice);

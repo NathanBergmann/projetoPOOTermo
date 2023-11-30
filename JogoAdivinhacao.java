@@ -10,11 +10,11 @@ public class JogoAdivinhacao {
     private StringBuilder palavraAdivinhada;
     private int tentativasRestantes;
     List<String> letrasCorretas = new ArrayList<>(Arrays.asList(" _ ", "_ ", "_ ", "_ ", "_ "));
-   // ArrayList<String> letraPosicaoErrada = new ArrayList<>();
 
 
-    public JogoAdivinhacao(List<String> palavras) {
-        this.palavraSecreta = new PalavraSecreta(palavras);
+    public JogoAdivinhacao() {
+        this.palavraSecreta = new PalavraSecreta();
+        this.palavraSecreta.escolherPalavraAleatoria();
         this.palavraAdivinhada = new StringBuilder();
         this.tentativasRestantes = 5; // Número de tentativas permitidas
     }
@@ -55,11 +55,16 @@ public class JogoAdivinhacao {
     }
 
     private void verificarPalpite(String palpite) {
+        letrasCorretas = Arrays.asList(" _ ", "_ ", "_ ", "_ ", "_ ");
         for (int i = 0; i < 5; i++) {
             char letra = palpite.charAt(i);
+            if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(i)).toUpperCase())){
+                letrasCorretas.set(i, String.valueOf(letra));
+                continue;
+            }
             for (int j = 0; j < 5; j++){
                 if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(j)).toUpperCase())){
-                    letrasCorretas.set(j, String.valueOf(letra));
+                    letrasCorretas.set(i, String.valueOf(letra)+"*");
                     //break;
                 }
             }
