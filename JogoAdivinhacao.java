@@ -10,7 +10,7 @@ public class JogoAdivinhacao {
     private StringBuilder palavraAdivinhada;
     private int tentativasRestantes;
     List<String> letrasCorretas = new ArrayList<>(Arrays.asList(" _ ", "_ ", "_ ", "_ ", "_ "));
-    ArrayList<String> letraPosicaoErrada = new ArrayList<>();
+   // ArrayList<String> letraPosicaoErrada = new ArrayList<>();
 
 
     public JogoAdivinhacao(List<String> palavras) {
@@ -21,49 +21,56 @@ public class JogoAdivinhacao {
 
     public void iniciarJogo() {
         Scanner scanner = new Scanner(System.in);
+        boolean acertou = false;
 
         while (tentativasRestantes > 0 && !palavraAdivinhada.toString().equals(palavraSecreta.getPalavra())) {
             exibirStatusJogo();
             System.out.print("Digite uma palavra: ");
             String palpite = scanner.next().toUpperCase();
-            
-             if (palpite.length() == palavraSecreta.getTamanho() && palpite.equals(palavraSecreta.getPalavra())) {
-                palavraAdivinhada = new StringBuilder(palavraSecreta.getPalavra());
-            } else if (palpite.length() == palavraSecreta.getTamanho() && !palpite.equals(palavraSecreta.getPalavra())) {
+            if (!tentativaValida(palpite)){
+                System.out.println("Por favor, digite uma palavra com 5 letras!");
+                continue;
+            }
+             if (palpite.toUpperCase().equals(palavraSecreta.getPalavra().toUpperCase())) {
+                 System.out.println("Parabéns! Você adivinhou a palavra correta: " + palavraSecreta.getPalavra());
+                 acertou = true;
+                 break;
+            } else if (!palpite.equals(palavraSecreta.getPalavra())) {
                 verificarPalpite(palpite);
             }
         }
         scanner.close();
 
-        if (palavraAdivinhada.toString().equals(palavraSecreta.getPalavra())) {
-            System.out.println("Parabéns! Você adivinhou a palavra correta: " + palavraSecreta.getPalavra());
-        } else {
+        if (!acertou){
             System.out.println("Você perdeu! A palavra correta era: " + palavraSecreta.getPalavra());
         }
-    }
+}
 
     private void exibirStatusJogo() {
+
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("Palavra a ser adivinhada: " + letrasCorretas);
         System.out.println("Tentativas restantes: " + tentativasRestantes);
     }
 
-    //Verificar o palpite
     private void verificarPalpite(String palpite) {
-        boolean letraEncontrada = false;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             char letra = palpite.charAt(i);
-            if (palavraSecreta.getLetra(j) == letra){
-                letrasCorretas.set(i, letra);
-                letraEncontrada = true;
+            for (int j = 0; j < 5; j++){
+                if (String.valueOf(letra).toUpperCase().equals(String.valueOf(palavraSecreta.getLetra(j)).toUpperCase())){
+                    letrasCorretas.set(j, String.valueOf(letra));
+                    //break;
+                }
             }
         }
-
-        if (!letraEncontrada) {
-            System.out.println("Letra incorreta! Tente novamente.");
-        }
-
         tentativasRestantes--;
+    }
+
+    private boolean tentativaValida(String palavraDigitada){
+        if (palavraDigitada.length() == 5){
+            return true;
+        }
+        return false;
     }
 }

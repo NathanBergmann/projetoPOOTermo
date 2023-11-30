@@ -10,10 +10,3 @@ public class Main {
         jogo.iniciarJogo();
     }
 }
-/*
-, "negro", "termo", "exito", "mexer", "nobre", "senso", "afeto", "algoz",
-            "etica", "plena", "mutua", "tenue", "fazer", "assim", "vigor", "sutil", "aquem", "porem",
-            "secao", "fosse", "sanar", "poder", "audaz", "ideia", "cerne", "inato", "moral", "sobre",
-            "desde", "muito", "justo", "honra", "quica", "torpe", "sonho", "razao", "futil", "etnia",
-            "icone", "anexo", "amigo", "egide", "tange", "lapso", "haver", "expor", "dengo", "mutuo", "tempo"
- */
